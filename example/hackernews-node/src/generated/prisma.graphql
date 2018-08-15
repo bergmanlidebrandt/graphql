@@ -1,0 +1,2075 @@
+# source: https://eu1.prisma.sh/per-lidebrandt/graphqldemo1/dev
+# timestamp: Wed Aug 15 2018 13:34:21 GMT+0200 (Central European Summer Time)
+
+type AggregateHorse {
+  count: Int!
+}
+
+type AggregateLink {
+  count: Int!
+}
+
+type AggregateOwner {
+  count: Int!
+}
+
+type AggregateRace {
+  count: Int!
+}
+
+type AggregateTrainer {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Horse implements Node {
+  id: ID!
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+  owner(where: OwnerWhereInput): Owner
+  trainer(where: TrainerWhereInput): Trainer
+  races(where: RaceWhereInput, orderBy: RaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Race!]
+}
+
+"""A connection to a list of items."""
+type HorseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [HorseEdge]!
+  aggregate: AggregateHorse!
+}
+
+input HorseCreateInput {
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+  owner: OwnerCreateOneWithoutHorsesInput
+  trainer: TrainerCreateOneWithoutHorsesInput
+  races: RaceCreateManyWithoutHorseInput
+}
+
+input HorseCreateManyWithoutOwnerInput {
+  create: [HorseCreateWithoutOwnerInput!]
+  connect: [HorseWhereUniqueInput!]
+}
+
+input HorseCreateManyWithoutTrainerInput {
+  create: [HorseCreateWithoutTrainerInput!]
+  connect: [HorseWhereUniqueInput!]
+}
+
+input HorseCreateOneWithoutRacesInput {
+  create: HorseCreateWithoutRacesInput
+  connect: HorseWhereUniqueInput
+}
+
+input HorseCreateWithoutOwnerInput {
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+  trainer: TrainerCreateOneWithoutHorsesInput
+  races: RaceCreateManyWithoutHorseInput
+}
+
+input HorseCreateWithoutRacesInput {
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+  owner: OwnerCreateOneWithoutHorsesInput
+  trainer: TrainerCreateOneWithoutHorsesInput
+}
+
+input HorseCreateWithoutTrainerInput {
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+  owner: OwnerCreateOneWithoutHorsesInput
+  races: RaceCreateManyWithoutHorseInput
+}
+
+"""An edge in a connection."""
+type HorseEdge {
+  """The item at the end of the edge."""
+  node: Horse!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum HorseOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  color_ASC
+  color_DESC
+  gender_ASC
+  gender_DESC
+  birthyear_ASC
+  birthyear_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type HorsePreviousValues {
+  id: ID!
+  name: String!
+  color: String!
+  gender: String!
+  birthyear: String!
+}
+
+type HorseSubscriptionPayload {
+  mutation: MutationType!
+  node: Horse
+  updatedFields: [String!]
+  previousValues: HorsePreviousValues
+}
+
+input HorseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HorseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HorseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HorseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: HorseWhereInput
+}
+
+input HorseUpdateInput {
+  name: String
+  color: String
+  gender: String
+  birthyear: String
+  owner: OwnerUpdateOneWithoutHorsesInput
+  trainer: TrainerUpdateOneWithoutHorsesInput
+  races: RaceUpdateManyWithoutHorseInput
+}
+
+input HorseUpdateManyWithoutOwnerInput {
+  create: [HorseCreateWithoutOwnerInput!]
+  connect: [HorseWhereUniqueInput!]
+  disconnect: [HorseWhereUniqueInput!]
+  delete: [HorseWhereUniqueInput!]
+  update: [HorseUpdateWithWhereUniqueWithoutOwnerInput!]
+  upsert: [HorseUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input HorseUpdateManyWithoutTrainerInput {
+  create: [HorseCreateWithoutTrainerInput!]
+  connect: [HorseWhereUniqueInput!]
+  disconnect: [HorseWhereUniqueInput!]
+  delete: [HorseWhereUniqueInput!]
+  update: [HorseUpdateWithWhereUniqueWithoutTrainerInput!]
+  upsert: [HorseUpsertWithWhereUniqueWithoutTrainerInput!]
+}
+
+input HorseUpdateOneWithoutRacesInput {
+  create: HorseCreateWithoutRacesInput
+  connect: HorseWhereUniqueInput
+  delete: Boolean
+  update: HorseUpdateWithoutRacesDataInput
+  upsert: HorseUpsertWithoutRacesInput
+}
+
+input HorseUpdateWithoutOwnerDataInput {
+  name: String
+  color: String
+  gender: String
+  birthyear: String
+  trainer: TrainerUpdateOneWithoutHorsesInput
+  races: RaceUpdateManyWithoutHorseInput
+}
+
+input HorseUpdateWithoutRacesDataInput {
+  name: String
+  color: String
+  gender: String
+  birthyear: String
+  owner: OwnerUpdateOneWithoutHorsesInput
+  trainer: TrainerUpdateOneWithoutHorsesInput
+}
+
+input HorseUpdateWithoutTrainerDataInput {
+  name: String
+  color: String
+  gender: String
+  birthyear: String
+  owner: OwnerUpdateOneWithoutHorsesInput
+  races: RaceUpdateManyWithoutHorseInput
+}
+
+input HorseUpdateWithWhereUniqueWithoutOwnerInput {
+  where: HorseWhereUniqueInput!
+  data: HorseUpdateWithoutOwnerDataInput!
+}
+
+input HorseUpdateWithWhereUniqueWithoutTrainerInput {
+  where: HorseWhereUniqueInput!
+  data: HorseUpdateWithoutTrainerDataInput!
+}
+
+input HorseUpsertWithoutRacesInput {
+  update: HorseUpdateWithoutRacesDataInput!
+  create: HorseCreateWithoutRacesInput!
+}
+
+input HorseUpsertWithWhereUniqueWithoutOwnerInput {
+  where: HorseWhereUniqueInput!
+  update: HorseUpdateWithoutOwnerDataInput!
+  create: HorseCreateWithoutOwnerInput!
+}
+
+input HorseUpsertWithWhereUniqueWithoutTrainerInput {
+  where: HorseWhereUniqueInput!
+  update: HorseUpdateWithoutTrainerDataInput!
+  create: HorseCreateWithoutTrainerInput!
+}
+
+input HorseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HorseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HorseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HorseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  color: String
+
+  """All values that are not equal to given value."""
+  color_not: String
+
+  """All values that are contained in given list."""
+  color_in: [String!]
+
+  """All values that are not contained in given list."""
+  color_not_in: [String!]
+
+  """All values less than the given value."""
+  color_lt: String
+
+  """All values less than or equal the given value."""
+  color_lte: String
+
+  """All values greater than the given value."""
+  color_gt: String
+
+  """All values greater than or equal the given value."""
+  color_gte: String
+
+  """All values containing the given string."""
+  color_contains: String
+
+  """All values not containing the given string."""
+  color_not_contains: String
+
+  """All values starting with the given string."""
+  color_starts_with: String
+
+  """All values not starting with the given string."""
+  color_not_starts_with: String
+
+  """All values ending with the given string."""
+  color_ends_with: String
+
+  """All values not ending with the given string."""
+  color_not_ends_with: String
+  gender: String
+
+  """All values that are not equal to given value."""
+  gender_not: String
+
+  """All values that are contained in given list."""
+  gender_in: [String!]
+
+  """All values that are not contained in given list."""
+  gender_not_in: [String!]
+
+  """All values less than the given value."""
+  gender_lt: String
+
+  """All values less than or equal the given value."""
+  gender_lte: String
+
+  """All values greater than the given value."""
+  gender_gt: String
+
+  """All values greater than or equal the given value."""
+  gender_gte: String
+
+  """All values containing the given string."""
+  gender_contains: String
+
+  """All values not containing the given string."""
+  gender_not_contains: String
+
+  """All values starting with the given string."""
+  gender_starts_with: String
+
+  """All values not starting with the given string."""
+  gender_not_starts_with: String
+
+  """All values ending with the given string."""
+  gender_ends_with: String
+
+  """All values not ending with the given string."""
+  gender_not_ends_with: String
+  birthyear: String
+
+  """All values that are not equal to given value."""
+  birthyear_not: String
+
+  """All values that are contained in given list."""
+  birthyear_in: [String!]
+
+  """All values that are not contained in given list."""
+  birthyear_not_in: [String!]
+
+  """All values less than the given value."""
+  birthyear_lt: String
+
+  """All values less than or equal the given value."""
+  birthyear_lte: String
+
+  """All values greater than the given value."""
+  birthyear_gt: String
+
+  """All values greater than or equal the given value."""
+  birthyear_gte: String
+
+  """All values containing the given string."""
+  birthyear_contains: String
+
+  """All values not containing the given string."""
+  birthyear_not_contains: String
+
+  """All values starting with the given string."""
+  birthyear_starts_with: String
+
+  """All values not starting with the given string."""
+  birthyear_not_starts_with: String
+
+  """All values ending with the given string."""
+  birthyear_ends_with: String
+
+  """All values not ending with the given string."""
+  birthyear_not_ends_with: String
+  owner: OwnerWhereInput
+  trainer: TrainerWhereInput
+  races_every: RaceWhereInput
+  races_some: RaceWhereInput
+  races_none: RaceWhereInput
+}
+
+input HorseWhereUniqueInput {
+  id: ID
+}
+
+type Link implements Node {
+  id: ID!
+  description: String!
+  url: String!
+  postedBy(where: UserWhereInput): User
+}
+
+"""A connection to a list of items."""
+type LinkConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LinkEdge]!
+  aggregate: AggregateLink!
+}
+
+input LinkCreateInput {
+  description: String!
+  url: String!
+  postedBy: UserCreateOneWithoutLinksInput
+}
+
+input LinkCreateManyWithoutPostedByInput {
+  create: [LinkCreateWithoutPostedByInput!]
+  connect: [LinkWhereUniqueInput!]
+}
+
+input LinkCreateWithoutPostedByInput {
+  description: String!
+  url: String!
+}
+
+"""An edge in a connection."""
+type LinkEdge {
+  """The item at the end of the edge."""
+  node: Link!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LinkOrderByInput {
+  id_ASC
+  id_DESC
+  description_ASC
+  description_DESC
+  url_ASC
+  url_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LinkPreviousValues {
+  id: ID!
+  description: String!
+  url: String!
+}
+
+type LinkSubscriptionPayload {
+  mutation: MutationType!
+  node: Link
+  updatedFields: [String!]
+  previousValues: LinkPreviousValues
+}
+
+input LinkSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LinkSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LinkSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LinkSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LinkWhereInput
+}
+
+input LinkUpdateInput {
+  description: String
+  url: String
+  postedBy: UserUpdateOneWithoutLinksInput
+}
+
+input LinkUpdateManyWithoutPostedByInput {
+  create: [LinkCreateWithoutPostedByInput!]
+  connect: [LinkWhereUniqueInput!]
+  disconnect: [LinkWhereUniqueInput!]
+  delete: [LinkWhereUniqueInput!]
+  update: [LinkUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [LinkUpsertWithWhereUniqueWithoutPostedByInput!]
+}
+
+input LinkUpdateWithoutPostedByDataInput {
+  description: String
+  url: String
+}
+
+input LinkUpdateWithWhereUniqueWithoutPostedByInput {
+  where: LinkWhereUniqueInput!
+  data: LinkUpdateWithoutPostedByDataInput!
+}
+
+input LinkUpsertWithWhereUniqueWithoutPostedByInput {
+  where: LinkWhereUniqueInput!
+  update: LinkUpdateWithoutPostedByDataInput!
+  create: LinkCreateWithoutPostedByInput!
+}
+
+input LinkWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LinkWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LinkWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LinkWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  postedBy: UserWhereInput
+}
+
+input LinkWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createHorse(data: HorseCreateInput!): Horse!
+  createOwner(data: OwnerCreateInput!): Owner!
+  createTrainer(data: TrainerCreateInput!): Trainer!
+  createRace(data: RaceCreateInput!): Race!
+  createLink(data: LinkCreateInput!): Link!
+  createUser(data: UserCreateInput!): User!
+  updateHorse(data: HorseUpdateInput!, where: HorseWhereUniqueInput!): Horse
+  updateOwner(data: OwnerUpdateInput!, where: OwnerWhereUniqueInput!): Owner
+  updateTrainer(data: TrainerUpdateInput!, where: TrainerWhereUniqueInput!): Trainer
+  updateRace(data: RaceUpdateInput!, where: RaceWhereUniqueInput!): Race
+  updateLink(data: LinkUpdateInput!, where: LinkWhereUniqueInput!): Link
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteHorse(where: HorseWhereUniqueInput!): Horse
+  deleteOwner(where: OwnerWhereUniqueInput!): Owner
+  deleteTrainer(where: TrainerWhereUniqueInput!): Trainer
+  deleteRace(where: RaceWhereUniqueInput!): Race
+  deleteLink(where: LinkWhereUniqueInput!): Link
+  deleteUser(where: UserWhereUniqueInput!): User
+  upsertHorse(where: HorseWhereUniqueInput!, create: HorseCreateInput!, update: HorseUpdateInput!): Horse!
+  upsertOwner(where: OwnerWhereUniqueInput!, create: OwnerCreateInput!, update: OwnerUpdateInput!): Owner!
+  upsertTrainer(where: TrainerWhereUniqueInput!, create: TrainerCreateInput!, update: TrainerUpdateInput!): Trainer!
+  upsertRace(where: RaceWhereUniqueInput!, create: RaceCreateInput!, update: RaceUpdateInput!): Race!
+  upsertLink(where: LinkWhereUniqueInput!, create: LinkCreateInput!, update: LinkUpdateInput!): Link!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyHorses(data: HorseUpdateInput!, where: HorseWhereInput): BatchPayload!
+  updateManyOwners(data: OwnerUpdateInput!, where: OwnerWhereInput): BatchPayload!
+  updateManyTrainers(data: TrainerUpdateInput!, where: TrainerWhereInput): BatchPayload!
+  updateManyRaces(data: RaceUpdateInput!, where: RaceWhereInput): BatchPayload!
+  updateManyLinks(data: LinkUpdateInput!, where: LinkWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  deleteManyHorses(where: HorseWhereInput): BatchPayload!
+  deleteManyOwners(where: OwnerWhereInput): BatchPayload!
+  deleteManyTrainers(where: TrainerWhereInput): BatchPayload!
+  deleteManyRaces(where: RaceWhereInput): BatchPayload!
+  deleteManyLinks(where: LinkWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type Owner implements Node {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  horses(where: HorseWhereInput, orderBy: HorseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Horse!]
+}
+
+"""A connection to a list of items."""
+type OwnerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OwnerEdge]!
+  aggregate: AggregateOwner!
+}
+
+input OwnerCreateInput {
+  firstname: String!
+  lastname: String!
+  horses: HorseCreateManyWithoutOwnerInput
+}
+
+input OwnerCreateOneWithoutHorsesInput {
+  create: OwnerCreateWithoutHorsesInput
+  connect: OwnerWhereUniqueInput
+}
+
+input OwnerCreateWithoutHorsesInput {
+  firstname: String!
+  lastname: String!
+}
+
+"""An edge in a connection."""
+type OwnerEdge {
+  """The item at the end of the edge."""
+  node: Owner!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OwnerOrderByInput {
+  id_ASC
+  id_DESC
+  firstname_ASC
+  firstname_DESC
+  lastname_ASC
+  lastname_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OwnerPreviousValues {
+  id: ID!
+  firstname: String!
+  lastname: String!
+}
+
+type OwnerSubscriptionPayload {
+  mutation: MutationType!
+  node: Owner
+  updatedFields: [String!]
+  previousValues: OwnerPreviousValues
+}
+
+input OwnerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OwnerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OwnerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OwnerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OwnerWhereInput
+}
+
+input OwnerUpdateInput {
+  firstname: String
+  lastname: String
+  horses: HorseUpdateManyWithoutOwnerInput
+}
+
+input OwnerUpdateOneWithoutHorsesInput {
+  create: OwnerCreateWithoutHorsesInput
+  connect: OwnerWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: OwnerUpdateWithoutHorsesDataInput
+  upsert: OwnerUpsertWithoutHorsesInput
+}
+
+input OwnerUpdateWithoutHorsesDataInput {
+  firstname: String
+  lastname: String
+}
+
+input OwnerUpsertWithoutHorsesInput {
+  update: OwnerUpdateWithoutHorsesDataInput!
+  create: OwnerCreateWithoutHorsesInput!
+}
+
+input OwnerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OwnerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OwnerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OwnerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  firstname: String
+
+  """All values that are not equal to given value."""
+  firstname_not: String
+
+  """All values that are contained in given list."""
+  firstname_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstname_not_in: [String!]
+
+  """All values less than the given value."""
+  firstname_lt: String
+
+  """All values less than or equal the given value."""
+  firstname_lte: String
+
+  """All values greater than the given value."""
+  firstname_gt: String
+
+  """All values greater than or equal the given value."""
+  firstname_gte: String
+
+  """All values containing the given string."""
+  firstname_contains: String
+
+  """All values not containing the given string."""
+  firstname_not_contains: String
+
+  """All values starting with the given string."""
+  firstname_starts_with: String
+
+  """All values not starting with the given string."""
+  firstname_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstname_ends_with: String
+
+  """All values not ending with the given string."""
+  firstname_not_ends_with: String
+  lastname: String
+
+  """All values that are not equal to given value."""
+  lastname_not: String
+
+  """All values that are contained in given list."""
+  lastname_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastname_not_in: [String!]
+
+  """All values less than the given value."""
+  lastname_lt: String
+
+  """All values less than or equal the given value."""
+  lastname_lte: String
+
+  """All values greater than the given value."""
+  lastname_gt: String
+
+  """All values greater than or equal the given value."""
+  lastname_gte: String
+
+  """All values containing the given string."""
+  lastname_contains: String
+
+  """All values not containing the given string."""
+  lastname_not_contains: String
+
+  """All values starting with the given string."""
+  lastname_starts_with: String
+
+  """All values not starting with the given string."""
+  lastname_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastname_ends_with: String
+
+  """All values not ending with the given string."""
+  lastname_not_ends_with: String
+  horses_every: HorseWhereInput
+  horses_some: HorseWhereInput
+  horses_none: HorseWhereInput
+}
+
+input OwnerWhereUniqueInput {
+  id: ID
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  horses(where: HorseWhereInput, orderBy: HorseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Horse]!
+  owners(where: OwnerWhereInput, orderBy: OwnerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Owner]!
+  trainers(where: TrainerWhereInput, orderBy: TrainerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Trainer]!
+  races(where: RaceWhereInput, orderBy: RaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Race]!
+  links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  horse(where: HorseWhereUniqueInput!): Horse
+  owner(where: OwnerWhereUniqueInput!): Owner
+  trainer(where: TrainerWhereUniqueInput!): Trainer
+  race(where: RaceWhereUniqueInput!): Race
+  link(where: LinkWhereUniqueInput!): Link
+  user(where: UserWhereUniqueInput!): User
+  horsesConnection(where: HorseWhereInput, orderBy: HorseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HorseConnection!
+  ownersConnection(where: OwnerWhereInput, orderBy: OwnerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OwnerConnection!
+  trainersConnection(where: TrainerWhereInput, orderBy: TrainerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TrainerConnection!
+  racesConnection(where: RaceWhereInput, orderBy: RaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RaceConnection!
+  linksConnection(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LinkConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Race implements Node {
+  id: ID!
+  date: String!
+  track: String!
+  distance: Int
+  result: Int
+  horse(where: HorseWhereInput): Horse!
+}
+
+"""A connection to a list of items."""
+type RaceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RaceEdge]!
+  aggregate: AggregateRace!
+}
+
+input RaceCreateInput {
+  date: String!
+  track: String!
+  distance: Int
+  result: Int
+  horse: HorseCreateOneWithoutRacesInput!
+}
+
+input RaceCreateManyWithoutHorseInput {
+  create: [RaceCreateWithoutHorseInput!]
+  connect: [RaceWhereUniqueInput!]
+}
+
+input RaceCreateWithoutHorseInput {
+  date: String!
+  track: String!
+  distance: Int
+  result: Int
+}
+
+"""An edge in a connection."""
+type RaceEdge {
+  """The item at the end of the edge."""
+  node: Race!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum RaceOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  track_ASC
+  track_DESC
+  distance_ASC
+  distance_DESC
+  result_ASC
+  result_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type RacePreviousValues {
+  id: ID!
+  date: String!
+  track: String!
+  distance: Int
+  result: Int
+}
+
+type RaceSubscriptionPayload {
+  mutation: MutationType!
+  node: Race
+  updatedFields: [String!]
+  previousValues: RacePreviousValues
+}
+
+input RaceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RaceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RaceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RaceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: RaceWhereInput
+}
+
+input RaceUpdateInput {
+  date: String
+  track: String
+  distance: Int
+  result: Int
+  horse: HorseUpdateOneWithoutRacesInput
+}
+
+input RaceUpdateManyWithoutHorseInput {
+  create: [RaceCreateWithoutHorseInput!]
+  connect: [RaceWhereUniqueInput!]
+  disconnect: [RaceWhereUniqueInput!]
+  delete: [RaceWhereUniqueInput!]
+  update: [RaceUpdateWithWhereUniqueWithoutHorseInput!]
+  upsert: [RaceUpsertWithWhereUniqueWithoutHorseInput!]
+}
+
+input RaceUpdateWithoutHorseDataInput {
+  date: String
+  track: String
+  distance: Int
+  result: Int
+}
+
+input RaceUpdateWithWhereUniqueWithoutHorseInput {
+  where: RaceWhereUniqueInput!
+  data: RaceUpdateWithoutHorseDataInput!
+}
+
+input RaceUpsertWithWhereUniqueWithoutHorseInput {
+  where: RaceWhereUniqueInput!
+  update: RaceUpdateWithoutHorseDataInput!
+  create: RaceCreateWithoutHorseInput!
+}
+
+input RaceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RaceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RaceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RaceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
+  track: String
+
+  """All values that are not equal to given value."""
+  track_not: String
+
+  """All values that are contained in given list."""
+  track_in: [String!]
+
+  """All values that are not contained in given list."""
+  track_not_in: [String!]
+
+  """All values less than the given value."""
+  track_lt: String
+
+  """All values less than or equal the given value."""
+  track_lte: String
+
+  """All values greater than the given value."""
+  track_gt: String
+
+  """All values greater than or equal the given value."""
+  track_gte: String
+
+  """All values containing the given string."""
+  track_contains: String
+
+  """All values not containing the given string."""
+  track_not_contains: String
+
+  """All values starting with the given string."""
+  track_starts_with: String
+
+  """All values not starting with the given string."""
+  track_not_starts_with: String
+
+  """All values ending with the given string."""
+  track_ends_with: String
+
+  """All values not ending with the given string."""
+  track_not_ends_with: String
+  distance: Int
+
+  """All values that are not equal to given value."""
+  distance_not: Int
+
+  """All values that are contained in given list."""
+  distance_in: [Int!]
+
+  """All values that are not contained in given list."""
+  distance_not_in: [Int!]
+
+  """All values less than the given value."""
+  distance_lt: Int
+
+  """All values less than or equal the given value."""
+  distance_lte: Int
+
+  """All values greater than the given value."""
+  distance_gt: Int
+
+  """All values greater than or equal the given value."""
+  distance_gte: Int
+  result: Int
+
+  """All values that are not equal to given value."""
+  result_not: Int
+
+  """All values that are contained in given list."""
+  result_in: [Int!]
+
+  """All values that are not contained in given list."""
+  result_not_in: [Int!]
+
+  """All values less than the given value."""
+  result_lt: Int
+
+  """All values less than or equal the given value."""
+  result_lte: Int
+
+  """All values greater than the given value."""
+  result_gt: Int
+
+  """All values greater than or equal the given value."""
+  result_gte: Int
+  horse: HorseWhereInput
+}
+
+input RaceWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  horse(where: HorseSubscriptionWhereInput): HorseSubscriptionPayload
+  owner(where: OwnerSubscriptionWhereInput): OwnerSubscriptionPayload
+  trainer(where: TrainerSubscriptionWhereInput): TrainerSubscriptionPayload
+  race(where: RaceSubscriptionWhereInput): RaceSubscriptionPayload
+  link(where: LinkSubscriptionWhereInput): LinkSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Trainer implements Node {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  location: String!
+  horses(where: HorseWhereInput, orderBy: HorseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Horse!]
+}
+
+"""A connection to a list of items."""
+type TrainerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TrainerEdge]!
+  aggregate: AggregateTrainer!
+}
+
+input TrainerCreateInput {
+  firstname: String!
+  lastname: String!
+  location: String!
+  horses: HorseCreateManyWithoutTrainerInput
+}
+
+input TrainerCreateOneWithoutHorsesInput {
+  create: TrainerCreateWithoutHorsesInput
+  connect: TrainerWhereUniqueInput
+}
+
+input TrainerCreateWithoutHorsesInput {
+  firstname: String!
+  lastname: String!
+  location: String!
+}
+
+"""An edge in a connection."""
+type TrainerEdge {
+  """The item at the end of the edge."""
+  node: Trainer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TrainerOrderByInput {
+  id_ASC
+  id_DESC
+  firstname_ASC
+  firstname_DESC
+  lastname_ASC
+  lastname_DESC
+  location_ASC
+  location_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type TrainerPreviousValues {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  location: String!
+}
+
+type TrainerSubscriptionPayload {
+  mutation: MutationType!
+  node: Trainer
+  updatedFields: [String!]
+  previousValues: TrainerPreviousValues
+}
+
+input TrainerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TrainerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TrainerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TrainerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TrainerWhereInput
+}
+
+input TrainerUpdateInput {
+  firstname: String
+  lastname: String
+  location: String
+  horses: HorseUpdateManyWithoutTrainerInput
+}
+
+input TrainerUpdateOneWithoutHorsesInput {
+  create: TrainerCreateWithoutHorsesInput
+  connect: TrainerWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: TrainerUpdateWithoutHorsesDataInput
+  upsert: TrainerUpsertWithoutHorsesInput
+}
+
+input TrainerUpdateWithoutHorsesDataInput {
+  firstname: String
+  lastname: String
+  location: String
+}
+
+input TrainerUpsertWithoutHorsesInput {
+  update: TrainerUpdateWithoutHorsesDataInput!
+  create: TrainerCreateWithoutHorsesInput!
+}
+
+input TrainerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TrainerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TrainerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TrainerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  firstname: String
+
+  """All values that are not equal to given value."""
+  firstname_not: String
+
+  """All values that are contained in given list."""
+  firstname_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstname_not_in: [String!]
+
+  """All values less than the given value."""
+  firstname_lt: String
+
+  """All values less than or equal the given value."""
+  firstname_lte: String
+
+  """All values greater than the given value."""
+  firstname_gt: String
+
+  """All values greater than or equal the given value."""
+  firstname_gte: String
+
+  """All values containing the given string."""
+  firstname_contains: String
+
+  """All values not containing the given string."""
+  firstname_not_contains: String
+
+  """All values starting with the given string."""
+  firstname_starts_with: String
+
+  """All values not starting with the given string."""
+  firstname_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstname_ends_with: String
+
+  """All values not ending with the given string."""
+  firstname_not_ends_with: String
+  lastname: String
+
+  """All values that are not equal to given value."""
+  lastname_not: String
+
+  """All values that are contained in given list."""
+  lastname_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastname_not_in: [String!]
+
+  """All values less than the given value."""
+  lastname_lt: String
+
+  """All values less than or equal the given value."""
+  lastname_lte: String
+
+  """All values greater than the given value."""
+  lastname_gt: String
+
+  """All values greater than or equal the given value."""
+  lastname_gte: String
+
+  """All values containing the given string."""
+  lastname_contains: String
+
+  """All values not containing the given string."""
+  lastname_not_contains: String
+
+  """All values starting with the given string."""
+  lastname_starts_with: String
+
+  """All values not starting with the given string."""
+  lastname_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastname_ends_with: String
+
+  """All values not ending with the given string."""
+  lastname_not_ends_with: String
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  horses_every: HorseWhereInput
+  horses_some: HorseWhereInput
+  horses_none: HorseWhereInput
+}
+
+input TrainerWhereUniqueInput {
+  id: ID
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  links(where: LinkWhereInput, orderBy: LinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Link!]
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  email: String!
+  password: String!
+  links: LinkCreateManyWithoutPostedByInput
+}
+
+input UserCreateOneWithoutLinksInput {
+  create: UserCreateWithoutLinksInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutLinksInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  password: String
+  links: LinkUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateOneWithoutLinksInput {
+  create: UserCreateWithoutLinksInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutLinksDataInput
+  upsert: UserUpsertWithoutLinksInput
+}
+
+input UserUpdateWithoutLinksDataInput {
+  name: String
+  email: String
+  password: String
+}
+
+input UserUpsertWithoutLinksInput {
+  update: UserUpdateWithoutLinksDataInput!
+  create: UserCreateWithoutLinksInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  links_every: LinkWhereInput
+  links_some: LinkWhereInput
+  links_none: LinkWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}

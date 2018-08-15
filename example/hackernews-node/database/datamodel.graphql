@@ -1,0 +1,49 @@
+type Horse {
+	id: ID! @unique
+	name: String!
+	color: String!
+	gender: String!
+	birthyear: String!
+	owner: Owner
+	trainer: Trainer
+	races: [Race!]!
+}
+
+type Owner {
+	id: ID! @unique
+	firstname: String!
+	lastname: String!
+	horses: [Horse!]!
+}
+
+type Trainer {
+	id: ID! @unique
+	firstname: String!
+	lastname: String!
+	location: String!
+	horses: [Horse!]!
+}
+
+type Race {
+	id: ID! @unique
+	date: String!
+	track: String!
+	distance: Int
+	result: Int
+	horse: Horse!
+}
+
+type Link {
+  id: ID! @unique
+  description: String!
+  url: String!
+  postedBy: User
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  links: [Link!]!
+}

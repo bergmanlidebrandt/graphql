@@ -1,0 +1,55 @@
+# import Link from "./generated/prisma.graphql"
+
+# import Horse from "./generated/prisma.graphql"
+# import HorseWhereInput from "./generated/prisma.graphql"
+# import HorseOrderByInput from "./generated/prisma.graphql"
+# import HorseWhereUniqueInput from "./generated/prisma.graphql"
+# import HorseCreateInput from "./generated/prisma.graphql"
+
+# import Owner from "./generated/prisma.graphql"
+
+# import Trainer from "./generated/prisma.graphql"
+
+# import Race from "./generated/prisma.graphql"
+
+
+
+type Query {
+	horses(where: HorseWhereInput
+			,orderBy: HorseOrderByInput
+			,skip: Int
+			,after: String
+			,before: String
+			,first: Int
+			,last: Int
+			): [Horse!]!
+			
+	horsedb(
+		where: HorseWhereUniqueInput!
+		): Horse		
+
+	horse(
+		id: String!
+		): Horse		
+		
+  info: String!
+  feed: [Link!]!
+}
+
+
+type Mutation {
+
+	createHorse(name: String!, color: String!, gender: String!, birthyear: String! ): Horse!
+		
+	createOwner(firstname: String! ,lastname: String! ,horseid: String): Owner!
+
+	post(url: String!, description: String!): Link!
+}
+
+
+
+
+
+
+
+

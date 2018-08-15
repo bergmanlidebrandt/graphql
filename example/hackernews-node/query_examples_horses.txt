@@ -1,0 +1,101 @@
+Next, start the GraphQL server:
+
+$
+.../hackernews-node
+node src/index.js
+Now, open a new terminal tab (or window) and run the following command to open both GraphQL APIs inside the same GraphQL Playground:
+
+$
+hackernews-node/
+graphql playground
+
+*** API **************************************
+--- queries
+{
+  horses(
+    where: {OR: [{name_contains: "Laban"}, {name_contains: "Silver"}]}
+    orderBy: name_DESC
+  ) 
+  {
+    name
+  }
+}
+
+{
+  horsebyid(id: "cjkv3fz5a9kuw0b04o11zzhr6") {
+    name gender
+  }
+}
+
+--- mutations
+mutation {
+  createHorse(name: "Riitva Funnysmack", color: "white", gender: "female", birthyear: "2015") {
+    id
+    name
+  }
+}
+
+*** DATABASE **********************************
+
+-- mutations
+mutation {
+  createHorse(data: {name: "Express Laban", color: "red", gender: "male", birthyear: "2014"}) {
+    id
+  }
+}
+mutation {
+  createOwner(data: {firstname: "Kalle", lastname: "Nilsson", horses: {connect: {id: "cjkv3fz5a9kuw0b04o11zzhr6"}}}) {
+    id
+  }
+}
+--- queries
+{
+  horses {
+    id
+    name
+    color
+    gender
+    birthyear
+  }
+}
+
+{
+  horse(where: {id: "cjkv3fz5a9kuw0b04o11zzhr6"}) {
+    name
+  }
+}
+
+{
+  horses(where: {name_contains: "Laban"}) {
+    name
+  }
+}
+
+{
+  horses(
+    where: {OR: [{name_contains: "Laban"}, {name_contains: "Silver"}]}
+  	orderBy: name_DESC
+  ) 
+  {
+    name
+  }
+}
+
+(where: {id: "cjkv3fz5a9kuw0b04o11zzhr6"}) {
+    name
+  }
+function feed(parent, args, context, info) {
+  const where = args.filter
+    ? {
+        OR: [
+          { url_contains: args.filter },
+          { description_contains: args.filter },
+        ],
+      }
+    : {}
+
+  return context.db.query.links(
+    { where, skip: args.skip, first: args.first },
+    info,
+  )
+}

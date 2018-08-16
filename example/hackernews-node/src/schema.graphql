@@ -6,6 +6,11 @@
 # import HorseWhereUniqueInput from "./generated/prisma.graphql"
 # import HorseCreateInput from "./generated/prisma.graphql"
 
+# import OwnerWhereInput from "./generated/prisma.graphql"
+# import OwnerOrderByInput from "./generated/prisma.graphql"
+# import OwnerWhereUniqueInput from "./generated/prisma.graphql"
+# import OwnerCreateInput from "./generated/prisma.graphql"
+
 # import Owner from "./generated/prisma.graphql"
 
 # import Trainer from "./generated/prisma.graphql"
@@ -31,6 +36,19 @@ type Query {
 	horse(
 		id: String!
 		): Horse		
+		
+	owners(where: OwnerWhereInput
+		,orderBy: OwnerOrderByInput
+		,skip: Int
+		,after: String
+		,before: String
+		,first: Int
+		,last: Int
+		): [Owner!]!
+		
+	owner(
+		id: String!
+		): Owner
 		
   info: String!
   feed: [Link!]!

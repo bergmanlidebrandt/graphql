@@ -29,6 +29,26 @@ const resolvers = {
 	horse: (root, args, context, info) => {
       return context.db.query.horse({where: {id: args.id}}, info)
     },
+	
+	owners: (root, args, context, info) => {
+      return context.db.query.owners(
+	  {
+		data: {
+			where: args.where, 
+			orderBy: args.orderBy,
+			skip: args.skip,
+			after: args.after,
+			before: args.before,
+			first: args.first,
+			last: args.last
+		  }
+	  }, info)
+    },
+	
+	owner: (root, args, context, info) => {
+      return context.db.query.owner({where: {id: args.id}}, info)
+    },
+	
     info: () => `This is the API of a Hackernews Clone`,
     feed: (root, args, context, info) => {
       return context.db.query.links(
@@ -51,12 +71,12 @@ const resolvers = {
 	createOwner: (root, args, context, info) => {
       return context.db.mutation.createOwner({
         data: {
-          firstname: args.firstname,
-          lastname: args.lastname,
-		  horses: {connect: {id: args.horseid},
-        },
-      }, info)
-    },
+			firstname: args.firstname,
+			lastname: args.lastname,
+			horses: {connect: {id: args.horseid}},
+			},
+		},info)
+	},
 	
     post: (root, args, context, info) => {
       return context.db.mutation.createLink({

@@ -27,6 +27,16 @@ graphql playground
   }
 }
 
+{
+  owners(where: {OR: [{firstname_contains: "Kalle"}, {firstname_contains: "Lena"}]}, orderBy: firstname_DESC) {
+    firstname
+    lastname
+    horses {
+      name
+    }
+  }
+}
+
 --- mutations
 mutation {
   createHorse(name: "Riitva Funnysmack", color: "white", gender: "female", birthyear: "2015") {
@@ -34,6 +44,11 @@ mutation {
     name
   }
 }
+
+mutation {
+  createOwner(firstname: "Lena", lastname: "Lind", horseid: "cjkvh66ic0has0b07kzp3iplm") {
+    id
+  }
 
 *** DATABASE **********************************
 
@@ -81,21 +96,11 @@ mutation {
   }
 }
 
-(where: {id: "cjkv3fz5a9kuw0b04o11zzhr6"}) {
-    name
+{
+  owners {
+    firstname
+    horses {
+      name
+    }
   }
-function feed(parent, args, context, info) {
-  const where = args.filter
-    ? {
-        OR: [
-          { url_contains: args.filter },
-          { description_contains: args.filter },
-        ],
-      }
-    : {}
-
-  return context.db.query.links(
-    { where, skip: args.skip, first: args.first },
-    info,
-  )
 }

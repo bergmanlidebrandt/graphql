@@ -22,7 +22,7 @@ graphql playground
 }
 
 {
-  horsebyid(id: "cjkv3fz5a9kuw0b04o11zzhr6") {
+  horse(id: "cjkv3fz5a9kuw0b04o11zzhr6") {
     name gender
   }
 }
@@ -37,6 +37,41 @@ graphql playground
   }
 }
 
+{
+  owner(id: "cjkwn9o9q3ozs0b071vsh0c0o") {
+    firstname 
+	lastname
+	horses {
+      name
+    }
+  }
+}
+
+
+{
+  trainers {
+    id
+    firstname
+    lastname
+    location
+    horses {
+      name
+    }
+  }
+}
+
+{
+  trainer(id: "cjkxnuyzh6l1w0b07l65f05m5") {
+    firstname 
+	lastname
+	horses {
+      name
+    }
+  }
+}
+
+
+
 --- mutations
 mutation {
   createHorse(name: "Riitva Funnysmack", color: "white", gender: "female", birthyear: "2015") {
@@ -49,7 +84,19 @@ mutation {
   createOwner(firstname: "Lena", lastname: "Lind", horseid: "cjkvh66ic0has0b07kzp3iplm") {
     id
   }
+ }
+ 
+ mutation {
+  createTrainer(firstname: "Abgar", lastname: "Lund", location: "Sölversborg" horseid: "cjkvh66ic0has0b07kzp3iplm") {
+    id
+  }
+}
 
+ mutation {
+  createRace(date: "2018-08-12", track: "Täby Galopp", horseid: "cjkvh66ic0has0b07kzp3iplm") {
+    id
+  }
+}
 *** DATABASE **********************************
 
 -- mutations

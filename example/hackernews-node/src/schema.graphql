@@ -6,16 +6,23 @@
 # import HorseWhereUniqueInput from "./generated/prisma.graphql"
 # import HorseCreateInput from "./generated/prisma.graphql"
 
+# import Owner from "./generated/prisma.graphql"
 # import OwnerWhereInput from "./generated/prisma.graphql"
 # import OwnerOrderByInput from "./generated/prisma.graphql"
 # import OwnerWhereUniqueInput from "./generated/prisma.graphql"
 # import OwnerCreateInput from "./generated/prisma.graphql"
 
-# import Owner from "./generated/prisma.graphql"
-
 # import Trainer from "./generated/prisma.graphql"
+# import TrainerWhereInput from "./generated/prisma.graphql"
+# import TrainerOrderByInput from "./generated/prisma.graphql"
+# import TrainerWhereUniqueInput from "./generated/prisma.graphql"
+# import TrainerCreateInput from "./generated/prisma.graphql"
 
 # import Race from "./generated/prisma.graphql"
+# import RaceWhereInput from "./generated/prisma.graphql"
+# import RaceOrderByInput from "./generated/prisma.graphql"
+# import RaceWhereUniqueInput from "./generated/prisma.graphql"
+# import RaceCreateInput from "./generated/prisma.graphql"
 
 
 
@@ -27,11 +34,7 @@ type Query {
 			,before: String
 			,first: Int
 			,last: Int
-			): [Horse!]!
-			
-	horsedb(
-		where: HorseWhereUniqueInput!
-		): Horse		
+			): [Horse!]!		
 
 	horse(
 		id: String!
@@ -49,6 +52,35 @@ type Query {
 	owner(
 		id: String!
 		): Owner
+
+	trainers(where: TrainerWhereInput
+		,orderBy: TrainerOrderByInput
+		,skip: Int
+		,after: String
+		,before: String
+		,first: Int
+		,last: Int
+		): [Trainer!]!
+		
+	trainer(
+		id: String!
+		): Trainer
+		
+		
+	races(where: RaceWhereInput
+	,orderBy: RaceOrderByInput
+	,skip: Int
+	,after: String
+	,before: String
+	,first: Int
+	,last: Int
+	): [Race!]!
+	
+	race(
+		id: String!
+		): Race
+
+
 		
   info: String!
   feed: [Link!]!
@@ -56,10 +88,10 @@ type Query {
 
 
 type Mutation {
-
 	createHorse(name: String!, color: String!, gender: String!, birthyear: String! ): Horse!
-		
 	createOwner(firstname: String! ,lastname: String! ,horseid: String): Owner!
+	createTrainer(firstname: String! ,lastname: String! ,location: String, horseid: String): Trainer!
+	createRace(date: String! ,track: String! ,distance: Int, result: Int horseid: String): Race!
 
 	post(url: String!, description: String!): Link!
 }

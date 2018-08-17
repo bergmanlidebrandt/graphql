@@ -18,14 +18,7 @@ const resolvers = {
 		  }
 	  }, info)
     },
-    horsedb: (root, args, context, info) => {
-      return context.db.query.horse(
-	  {
-		data: {
-			where: args.where
-		  }
-	  }, info)
-    },	
+	
 	horse: (root, args, context, info) => {
       return context.db.query.horse({where: {id: args.id}}, info)
     },
@@ -49,6 +42,45 @@ const resolvers = {
       return context.db.query.owner({where: {id: args.id}}, info)
     },
 	
+	trainers: (root, args, context, info) => {
+      return context.db.query.trainers(
+	  {
+		data: {
+			where: args.where, 
+			orderBy: args.orderBy,
+			skip: args.skip,
+			after: args.after,
+			before: args.before,
+			first: args.first,
+			last: args.last
+		  }
+	  }, info)
+    },
+	
+	trainer: (root, args, context, info) => {
+      return context.db.query.trainer({where: {id: args.id}}, info)
+    },
+	
+	races: (root, args, context, info) => {
+      return context.db.query.races(
+	  {
+		data: {
+			where: args.where, 
+			orderBy: args.orderBy,
+			skip: args.skip,
+			after: args.after,
+			before: args.before,
+			first: args.first,
+			last: args.last
+		  }
+	  }, info)
+    },
+	
+	race: (root, args, context, info) => {
+      return context.db.query.race({where: {id: args.id}}, info)
+    },
+	
+
     info: () => `This is the API of a Hackernews Clone`,
     feed: (root, args, context, info) => {
       return context.db.query.links(
@@ -74,6 +106,29 @@ const resolvers = {
 			firstname: args.firstname,
 			lastname: args.lastname,
 			horses: {connect: {id: args.horseid}},
+			},
+		},info)
+	},
+	
+	createTrainer: (root, args, context, info) => {
+      return context.db.mutation.createTrainer({
+        data: {
+			firstname: args.firstname,
+			lastname: args.lastname,
+			location: args.location,
+			horses: {connect: {id: args.horseid}},
+			},
+		},info)
+	},
+	
+	createRace: (root, args, context, info) => {
+      return context.db.mutation.createRace({
+        data: {
+			date: args.date,
+			track: args.track,
+			distance: args.distance,
+			result: args.result,
+			horse: {connect: {id: args.horseid}},
 			},
 		},info)
 	},

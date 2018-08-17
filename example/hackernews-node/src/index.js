@@ -133,6 +133,15 @@ const resolvers = {
 		},info)
 	},
 	
+	addHorseToOwner: (root, args, context, info) => {
+      return context.db.mutation.updateOwner({
+        data: {
+			horses: {connect: {id: args.horseid}},
+			},
+		where: {id: args.ownerid}
+		},info)
+	},
+	
     post: (root, args, context, info) => {
       return context.db.mutation.createLink({
         data: {

@@ -93,8 +93,16 @@ mutation {
 }
 
  mutation {
-  createRace(date: "2018-08-12", track: "Täby Galopp", horseid: "cjkvh66ic0has0b07kzp3iplm") {
+  createRace(date: "2018-08-12", track: "Täby Galopp", distance: 10000, result: 4 horseid: "cjkvgpw630gd60b07zuynzl3i") {
     id
+  }
+}
+
+mutation {
+  addHorseToOwner(ownerid: "cjkvioerd0l0e0b074yafts97", horseid: "cjkv54cv59qj50b043fj4a606") {
+    horses {
+      name
+    }
   }
 }
 *** DATABASE **********************************

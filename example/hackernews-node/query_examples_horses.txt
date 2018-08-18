@@ -105,6 +105,14 @@ mutation {
     }
   }
 }
+
+mutation {
+  addHorseToTrainer(trainerid: "cjky01g7lba9h0b07w2ruv55n", horseid: "cjkxzvk8wb4dx0b07blz9c8pv") {
+    horses {
+      name
+    }
+  }
+}
 *** DATABASE **********************************
 
 -- mutations

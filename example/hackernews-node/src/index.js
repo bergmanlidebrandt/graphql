@@ -142,6 +142,15 @@ const resolvers = {
 		},info)
 	},
 	
+	addHorseToTrainer: (root, args, context, info) => {
+      return context.db.mutation.updateTrainer({
+        data: {
+			horses: {connect: {id: args.horseid}},
+			},
+		where: {id: args.trainerid}
+		},info)
+	},
+	
     post: (root, args, context, info) => {
       return context.db.mutation.createLink({
         data: {

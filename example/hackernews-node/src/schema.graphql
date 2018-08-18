@@ -93,6 +93,7 @@ type Mutation {
 	createTrainer(firstname: String! ,lastname: String! ,location: String, horseid: String): Trainer!
 	createRace(date: String! ,track: String! ,distance: Int, result: Int horseid: String): Race!
 	addHorseToOwner(ownerid: String!, horseid: String!): Owner!
+	addHorseToTrainer(trainerid: String!, horseid: String!): Trainer!
 	post(url: String!, description: String!): Link!
 }
 

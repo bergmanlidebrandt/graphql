@@ -123,6 +123,9 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
+    <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\RaceController.cs" />
     <Compile Include="Controllers\HorseController.cs" />
     <Compile Include="Db\Database.cs" />
     <Compile Include="Global.asax.cs">

@@ -250,12 +250,7 @@ namespace RestVSGraphQLHorses.Db
 
         public static List<Horse> GetHorses()
         {
-            List<Horse> horses = new List<Horse>();
-            horses.Add(PrintonanBoy);
-            horses.Add(TheMerryWidow);
-            horses.Add(Luck);
-            horses.Add(Bataclan);
-            horses.Add(GungaDin);
+            var horses = new List<Horse> {PrintonanBoy, TheMerryWidow, Luck, Bataclan, GungaDin};
             return horses;
         }
 
@@ -274,23 +269,7 @@ namespace RestVSGraphQLHorses.Db
 
         public static List<Race> GetRaces()
         {
-            List<Race> races = new List<Race>();
-            races.Add(R1);
-            races.Add(R2);
-            races.Add(R3);
-            races.Add(R4);
-            races.Add(R5);
-            races.Add(R6);
-            races.Add(R7);
-            races.Add(R8);
-            races.Add(R9);
-            races.Add(R10);
-            races.Add(R11);
-            races.Add(R12);
-            races.Add(R13);
-            races.Add(R14);
-            races.Add(R15);
-            races.Add(R16);
+            var races = new List<Race> {R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16};
             return races;
         }
 
@@ -320,9 +299,7 @@ namespace RestVSGraphQLHorses.Db
 
         public static List<Owner> GetOwners()
         {
-            List<Owner> owners = new List<Owner>();
-            owners.Add(O1);
-            owners.Add(O2);
+            var owners = new List<Owner> {O1, O2};
             return owners;
         }
 
@@ -338,8 +315,7 @@ namespace RestVSGraphQLHorses.Db
 
         public static List<Trainer> GetTrainers()
         {
-            List<Trainer> trainers = new List<Trainer>();
-            trainers.Add(T1);
+            var trainers = new List<Trainer>{T1};
             return trainers;
         }
 

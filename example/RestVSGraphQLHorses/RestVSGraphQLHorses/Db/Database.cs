@@ -176,6 +176,7 @@ namespace RestVSGraphQLHorses.Db
             Gender = "male",
             Id = 1,
             OwnerId = 1,
+            TrainerId = 1,
             RaceIds = Races
         };
 
@@ -187,6 +188,7 @@ namespace RestVSGraphQLHorses.Db
             Gender = "female",
             Id = 2,
             OwnerId = 1,
+            TrainerId = 1,
             RaceIds = Races
         };
 
@@ -198,6 +200,7 @@ namespace RestVSGraphQLHorses.Db
             Gender = "female",
             Id = 3,
             OwnerId = 1,
+            TrainerId = 1,
             RaceIds = Races
         };
 
@@ -209,6 +212,7 @@ namespace RestVSGraphQLHorses.Db
             Gender = "female",
             Id = 4,
             OwnerId = 1,
+            TrainerId = 1,
             RaceIds = Races
         };
 
@@ -219,7 +223,8 @@ namespace RestVSGraphQLHorses.Db
             Color = "black",
             Gender = "male",
             Id = 5,
-            OwnerId = 2
+            OwnerId = 2,
+            TrainerId = 1
         };
 
         public static Owner O1 = new Owner

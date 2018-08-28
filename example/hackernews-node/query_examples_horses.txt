@@ -12,6 +12,14 @@ graphql playground
 *** API **************************************
 --- queries
 {
+  trainers(where: {lastname_contains: "Hammarlund"}) {
+horses{name, owner {lastname}, races{date, track, distance, result}}
+    }
+}
+
+
+
+{
   horses(
     where: {OR: [{name_contains: "Laban"}, {name_contains: "Silver"}]}
     orderBy: name_DESC

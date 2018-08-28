@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RestVSGraphQLHorses.Models;
 
 namespace RestVSGraphQLHorses.Db
 {
     public class Database
     {
-        private static readonly int[] Races = {1, 2, 3, 4};
-
+        private static readonly int[] RaceSuitHorse1 = {1, 5, 9, 13};
+        private static readonly int[] RaceSuitHorse2 = { 2, 6, 10, 14 };
+        private static readonly int[] RaceSuitHorse3 = { 3, 7, 11, 15 };
+        private static readonly int[] RaceSuitHorse4 = { 4, 8, 12, 16 };
+        
         public static Race R1 = new Race
         {
             Id = 1,
@@ -177,7 +181,7 @@ namespace RestVSGraphQLHorses.Db
             Id = 1,
             OwnerId = 1,
             TrainerId = 1,
-            RaceIds = Races
+            RaceIds = RaceSuitHorse1
         };
 
         public static Horse TheMerryWidow = new Horse
@@ -189,7 +193,7 @@ namespace RestVSGraphQLHorses.Db
             Id = 2,
             OwnerId = 1,
             TrainerId = 1,
-            RaceIds = Races
+            RaceIds = RaceSuitHorse2
         };
 
         public static Horse Luck = new Horse
@@ -201,7 +205,7 @@ namespace RestVSGraphQLHorses.Db
             Id = 3,
             OwnerId = 1,
             TrainerId = 1,
-            RaceIds = Races
+            RaceIds = RaceSuitHorse3
         };
 
         public static Horse Bataclan = new Horse
@@ -213,7 +217,7 @@ namespace RestVSGraphQLHorses.Db
             Id = 4,
             OwnerId = 1,
             TrainerId = 1,
-            RaceIds = Races
+            RaceIds = RaceSuitHorse4
         };
 
         public static Horse GungaDin = new Horse
@@ -225,6 +229,17 @@ namespace RestVSGraphQLHorses.Db
             Id = 5,
             OwnerId = 2,
             TrainerId = 1
+        };
+
+        public static Horse DoctorDoLittle = new Horse
+        {
+            Name = "Doctor Dolittle",
+            Birthyear = "2016",
+            Color = "black",
+            Gender = "male",
+            Id = 6,
+            OwnerId = 2,
+            TrainerId = 2
         };
 
         public static Owner O1 = new Owner
@@ -252,11 +267,25 @@ namespace RestVSGraphQLHorses.Db
             HorseIds = new[] {1, 2, 3, 4, 5}
         };
 
+        public static Trainer T2 = new Trainer
+        {
+            Id = 2,
+            Firstname = "Abgar",
+            Lastname = "Lund",
+            Location = "Sölversborg",
+            HorseIds = new[] { 6 }
+        };
+
+        public static List<Horse> Horses = new List<Horse> { PrintonanBoy, TheMerryWidow, Luck, Bataclan, GungaDin, DoctorDoLittle };
+        public static List<Race> Races = new List<Race> { R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16 };
+
+        public static List<Owner> Owners = new List<Owner> { O1, O2 };
+
+        public static List<Trainer> Trainers = new List<Trainer> { T1, T2 };
 
         public static List<Horse> GetHorses()
         {
-            var horses = new List<Horse> {PrintonanBoy, TheMerryWidow, Luck, Bataclan, GungaDin};
-            return horses;
+            return Horses;
         }
 
         public static Horse GetHorse(int id)
@@ -268,14 +297,15 @@ namespace RestVSGraphQLHorses.Db
                 case 3: return Luck;
                 case 4: return Bataclan;
                 case 5: return GungaDin;
+                case 6: return DoctorDoLittle;
                 default: return PrintonanBoy;
             }
         }
 
         public static List<Race> GetRaces()
         {
-            var races = new List<Race> {R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16};
-            return races;
+            
+            return Races;
         }
 
         public static Race GetRace(int id)
@@ -304,8 +334,7 @@ namespace RestVSGraphQLHorses.Db
 
         public static List<Owner> GetOwners()
         {
-            var owners = new List<Owner> {O1, O2};
-            return owners;
+            return Owners;
         }
 
         public static Owner GetOwner(int id)
@@ -318,10 +347,10 @@ namespace RestVSGraphQLHorses.Db
             }
         }
 
-        public static List<Trainer> GetTrainers()
+        public static List<Trainer> GetTrainers(string lastname = null)
         {
-            var trainers = new List<Trainer>{T1};
-            return trainers;
+            if(string.IsNullOrEmpty(lastname)) return Trainers;
+            return Trainers.Where(t => t.Lastname == lastname).ToList();
         }
 
         public static Trainer GetTrainer(int id)
@@ -332,5 +361,6 @@ namespace RestVSGraphQLHorses.Db
                 default: return T1;
             }
         }
+
     }
 }

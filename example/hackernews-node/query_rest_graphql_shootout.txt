@@ -1,14 +1,38 @@
-Printonan Boy cjkxzsefvb1dx0b07ny61ahwt
-The Merry Widow cjkxztp76b2m20b075qoqg578
-Luck cjkxzup5yb3kg0b079jqbdxzw
-Bataclan cjkxzvk8wb4dx0b07blz9c8pv
+Which horses are trained by Hanna Hammarlund?
+Who are the owners of these horses?
+In which races have these horses been involved?
+How successful have they been?
 
-Britta Källman	cjky01g7lba9h0b07w2ruv55n
+Vilka hästar tränas av Hanna Hammarlund?
+Vilka är ägarna till dessa hästar?
+I vilka lopp har hästarna deltagit?
+Hur lyckosamma har de varit?
 
-		Printonan Boy	cjkxzsefvb1dx0b07ny61ahwt
-			The Merry Widow	cjkxztp76b2m20b075qoqg578
-			Luck	cjkxzup5yb3kg0b079jqbdxzw
-			Bataclan	cjkxzvk8wb4dx0b07blz9c8pv
+Races											result	Id GraphQL
+Bro Park	100000	2018-04-01	Printonan Boy	1	cjkxzsefvb1dx0b07ny61ahwt cjky0nsjabzsz0b07xr0iz4fu
+								The Merry Widow	2	cjkxztp76b2m20b075qoqg578
+								Luck			3	cjkxzup5yb3kg0b079jqbdxzw
+								Bataclan		4	cjkxzvk8wb4dx0b07blz9c8pv
+					
+			10000	2018-04-02	Printonan Boy	2	cjkxzsefvb1dx0b07ny61ahwt
+								The Merry Widow	1	cjkxztp76b2m20b075qoqg578
+								Luck			3	cjkxzup5yb3kg0b079jqbdxzw
+								Bataclan		4	cjkxzvk8wb4dx0b07blz9c8pv
+					
+					
+Jägersro Galopp	150000	2018-04-02	Printonan Boy	3	cjkxzsefvb1dx0b07ny61ahwt
+									The Merry Widow	1	cjkxztp76b2m20b075qoqg578
+									Luck			2	cjkxzup5yb3kg0b079jqbdxzw
+									Bataclan		4	cjkxzvk8wb4dx0b07blz9c8pv
+					
+				150000	2018-04-04	Printonan Boy	3	cjkxzsefvb1dx0b07ny61ahwt
+									The Merry Widow	2	cjkxztp76b2m20b075qoqg578
+									Luck			1	cjkxzup5yb3kg0b079jqbdxzw
+									Bataclan		4	cjkxzvk8wb4dx0b07blz9c8pv
 
 			
-			Hanna Hammarlund
+mutation {
+  createRace(date: "2018-07-21", track: "Jägersro", distance: 15000, result: 1 horseid: "cjkvh66ic0has0b07kzp3iplm") {
+    id
+  }
+}
